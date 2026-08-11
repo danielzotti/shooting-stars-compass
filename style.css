@@ -80,20 +80,50 @@ html, body {
 .shower-selector-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .shower-select {
-  flex: 1;
+  flex: 1 1 180px;
+  min-width: 0;
   background-color: #120000;
   color: var(--bright-text);
   border: 1px solid var(--primary-red);
   border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 1rem;
+  padding: 8px 10px;
+  font-size: 0.9rem;
   font-weight: bold;
   outline: none;
   box-shadow: 0 0 10px var(--primary-red-glow);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lang-switch-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.lang-toggle-btn {
+  background: #1a0000;
+  color: var(--amber-orange);
+  border: 1px solid var(--amber-orange);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 8px var(--amber-orange-glow);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.lang-toggle-btn:hover, .lang-toggle-btn:active {
+  background: var(--amber-orange);
+  color: #000;
 }
 
 .badge-active {
@@ -105,6 +135,7 @@ html, body {
   color: #000;
   letter-spacing: 0.5px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .info-card {

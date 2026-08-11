@@ -7,92 +7,186 @@
  * RA (Ascensione Retta) in ore decimali [0 - 24h]
  * Dec (Declinazione) in gradi decimali [-90° a +90°]
  */
+/**
+ * 1. DATABASE ASTRONOMICO OFFLINE (Sciami Meteorici Principali)
+ * RA (Ascensione Retta) in ore decimali [0 - 24h]
+ * Dec (Declinazione) in gradi decimali [-90° a +90°]
+ */
 const METEOR_SHOWERS = [
   {
     id: "quadrantids",
-    name: "Quadrantidi (QUAD)",
+    name: { it: "Quadrantidi (QUAD)", en: "Quadrantids (QUAD)" },
     ra: 15.33,       // 15h 20m
     dec: 49.0,       // +49°
-    peakMonth: 1,    // Gennaio
+    peakMonth: 1,    // Gennaio / January
     peakDay: 3,
-    activeSpan: "28 Dic - 12 Gen"
+    activeSpan: { it: "28 Dic - 12 Gen", en: "Dec 28 - Jan 12" }
   },
   {
     id: "lyrids",
-    name: "Liridi (LYR)",
+    name: { it: "Liridi (LYR)", en: "Lyrids (LYR)" },
     ra: 18.08,       // 18h 05m
     dec: 34.0,       // +34°
-    peakMonth: 4,    // Aprile
+    peakMonth: 4,    // Aprile / April
     peakDay: 22,
-    activeSpan: "14 Apr - 30 Apr"
+    activeSpan: { it: "14 Apr - 30 Apr", en: "Apr 14 - Apr 30" }
   },
   {
     id: "eta_aquariids",
-    name: "Eta Aquaridi (ETA)",
+    name: { it: "Eta Aquaridi (ETA)", en: "Eta Aquariids (ETA)" },
     ra: 22.53,       // 22h 32m
     dec: -1.0,       // -1°
-    peakMonth: 5,    // Maggio
+    peakMonth: 5,    // Maggio / May
     peakDay: 6,
-    activeSpan: "19 Apr - 28 Mag"
+    activeSpan: { it: "19 Apr - 28 Mag", en: "Apr 19 - May 28" }
   },
   {
     id: "delta_aquariids",
-    name: "Delta Aquaridi (SDA)",
+    name: { it: "Delta Aquaridi (SDA)", en: "Delta Aquariids (SDA)" },
     ra: 22.68,       // 22h 41m
     dec: -16.0,      // -16°
-    peakMonth: 7,    // Luglio
+    peakMonth: 7,    // Luglio / July
     peakDay: 30,
-    activeSpan: "12 Lug - 23 Ago"
+    activeSpan: { it: "12 Lug - 23 Ago", en: "Jul 12 - Aug 23" }
   },
   {
     id: "perseids",
-    name: "Perseidi (PER)",
+    name: { it: "Perseidi (PER)", en: "Perseids (PER)" },
     ra: 3.1,         // 03h 06m
     dec: 58.0,       // +58°
-    peakMonth: 8,    // Agosto
+    peakMonth: 8,    // Agosto / August
     peakDay: 12,
-    activeSpan: "17 Lug - 24 Ago"
+    activeSpan: { it: "17 Lug - 24 Ago", en: "Jul 17 - Aug 24" }
   },
   {
     id: "orionids",
-    name: "Orionidi (ORI)",
+    name: { it: "Orionidi (ORI)", en: "Orionids (ORI)" },
     ra: 6.33,        // 06h 20m
     dec: 16.0,       // +16°
-    peakMonth: 10,   // Ottobre
+    peakMonth: 10,   // Ottobre / October
     peakDay: 21,
-    activeSpan: "02 Ott - 07 Nov"
+    activeSpan: { it: "02 Ott - 07 Nov", en: "Oct 02 - Nov 07" }
   },
   {
     id: "leonids",
-    name: "Leonidi (LEO)",
+    name: { it: "Leonidi (LEO)", en: "Leonids (LEO)" },
     ra: 10.2,        // 10h 12m
     dec: 22.0,       // +22°
-    peakMonth: 11,   // Novembre
+    peakMonth: 11,   // Novembre / November
     peakDay: 17,
-    activeSpan: "06 Nov - 30 Nov"
+    activeSpan: { it: "06 Nov - 30 Nov", en: "Nov 06 - Nov 30" }
   },
   {
     id: "geminids",
-    name: "Geminidi (GEM)",
+    name: { it: "Geminidi (GEM)", en: "Geminids (GEM)" },
     ra: 7.46,        // 07h 28m
     dec: 33.0,       // +33°
-    peakMonth: 12,   // Dicembre
+    peakMonth: 12,   // Dicembre / December
     peakDay: 14,
-    activeSpan: "04 Dic - 20 Dic"
+    activeSpan: { it: "04 Dic - 20 Dic", en: "Dec 04 - Dec 20" }
   },
   {
     id: "ursids",
-    name: "Ursidi (URS)",
+    name: { it: "Ursidi (URS)", en: "Ursids (URS)" },
     ra: 14.48,       // 14h 29m
     dec: 76.0,       // +76°
-    peakMonth: 12,   // Dicembre
+    peakMonth: 12,   // Dicembre / December
     peakDay: 22,
-    activeSpan: "17 Dic - 26 Dic"
+    activeSpan: { it: "17 Dic - 26 Dic", en: "Dec 17 - Dec 26" }
   }
 ];
 
+/* ==========================================================================
+   DICTIONARY / TRADUZIONI MULTILINGUA (IT & EN)
+   ========================================================================== */
+const I18N_TRANSLATIONS = {
+  it: {
+    selectShowerLabel: "Seleziona Sciame Meteorico",
+    nextPeakBadge: "PROSSIMO PICCO",
+    labelAzimuth: "AZIMUT",
+    labelAltitude: "ALTITUDINE",
+    labelStatus: "STATO",
+    statusCalculating: "CALCOLO...",
+    statusBelowHorizon: "SOTTO L'ORIZZONTE",
+    statusVisible: "VISIBILE IN CIELO",
+    radiantLabelHud: "RADIANTE",
+    guidanceInit: "INIZIALIZZAZIONE...",
+    guidancePointSky: "Punta il telefono verso il cielo",
+    labelCompass: "BUSSOLA",
+    modalDesc: "Bussola astronomica in realtà aumentata per guidarti verso il radiante delle stelle cadenti attualmente attivo.",
+    modalPrecisionTitle: "⚠️ Per la massima precisione:",
+    modalNoteGps: "Attiva il <strong>GPS</strong> del telefono.",
+    modalNoteSensors: "Consenti l'accesso ai <strong>Sensori di Movimento/Bussola</strong>.",
+    modalNoteCalibrate: "Calibra la bussola ruotando il telefono a forma di 8.",
+    btnStart: "AVVIA E ATTIVA SENSORI",
+    peakText: "Picco",
+    activeSpanLabel: "Periodo di attività",
+    gpsUnsupported: "Non supportato",
+    gpsSearching: "Ricerca...",
+    gpsDefault: "Usa Default (Roma)",
+    compassActiveIos: "Attiva (iOS)",
+    compassDeniedIos: "Negato (iOS)",
+    compassDeniedAlert: "I permessi per la bussola sono stati negati. Abilitali nelle impostazioni di Safari/iOS.",
+    compassError: "Errore Permessi",
+    compassActiveAbsolute: "Attiva (Assoluta)",
+    compassActiveStandard: "Attiva (Standard)",
+    compassUnsupported: "Non supportato",
+    targetLockedTitle: "🎯 RADIANTE PUNTATO!",
+    targetLockedSub: "Sei esattamente nel mirino dello sciame!",
+    turnRight: "Girati a DESTRA",
+    turnLeft: "Girati a SINISTRA",
+    pitchUp: "ALZA il telefono",
+    pitchDown: "ABBASSA il telefono",
+    andWord: "e",
+    correctAlt: "Altezza corretta",
+    correctAz: "Direzione azimutale corretta"
+  },
+  en: {
+    selectShowerLabel: "Select Meteor Shower",
+    nextPeakBadge: "NEXT PEAK",
+    labelAzimuth: "AZIMUTH",
+    labelAltitude: "ALTITUDE",
+    labelStatus: "STATUS",
+    statusCalculating: "CALCULATING...",
+    statusBelowHorizon: "BELOW HORIZON",
+    statusVisible: "VISIBLE IN SKY",
+    radiantLabelHud: "RADIANT",
+    guidanceInit: "INITIALIZING...",
+    guidancePointSky: "Point your phone at the sky",
+    labelCompass: "COMPASS",
+    modalDesc: "Augmented reality astronomical compass to guide you toward the active meteor shower radiant.",
+    modalPrecisionTitle: "⚠️ For best accuracy:",
+    modalNoteGps: "Turn on phone <strong>GPS</strong>.",
+    modalNoteSensors: "Allow access to <strong>Motion/Compass Sensors</strong>.",
+    modalNoteCalibrate: "Calibrate compass by waving phone in a figure-8.",
+    btnStart: "START & ENABLE SENSORS",
+    peakText: "Peak",
+    activeSpanLabel: "Active period",
+    gpsUnsupported: "Not supported",
+    gpsSearching: "Searching...",
+    gpsDefault: "Using Default (Rome)",
+    compassActiveIos: "Active (iOS)",
+    compassDeniedIos: "Denied (iOS)",
+    compassDeniedAlert: "Compass permissions were denied. Please enable them in Safari/iOS settings.",
+    compassError: "Permission Error",
+    compassActiveAbsolute: "Active (Absolute)",
+    compassActiveStandard: "Active (Standard)",
+    compassUnsupported: "Not supported",
+    targetLockedTitle: "🎯 RADIANT LOCKED!",
+    targetLockedSub: "You are aiming directly at the meteor shower radiant!",
+    turnRight: "Turn RIGHT",
+    turnLeft: "Turn LEFT",
+    pitchUp: "TILT UP phone",
+    pitchDown: "TILT DOWN phone",
+    andWord: "and",
+    correctAlt: "Correct elevation",
+    correctAz: "Correct azimuth direction"
+  }
+};
+
 // Stato globale dell'applicazione
 const state = {
+  lang: localStorage.getItem('app_lang') || (navigator.language && navigator.language.startsWith('it') ? 'it' : 'en'),
   activeShower: null,
   userCoords: { lat: 41.9028, lon: 12.4964 }, // Roma come fallback standard
   hasGPS: false,
@@ -109,6 +203,7 @@ const dom = {
   startModal: document.getElementById('start-modal'),
   btnStart: document.getElementById('btn-start'),
   showerSelect: document.getElementById('shower-select'),
+  langToggle: document.getElementById('lang-toggle'),
   activeBadge: document.getElementById('active-badge'),
   targetAz: document.getElementById('target-az'),
   targetAlt: document.getElementById('target-alt'),
@@ -126,6 +221,42 @@ const dom = {
   lstTime: document.getElementById('lst-time'),
   showerDatesInfo: document.getElementById('shower-dates-info')
 };
+
+/**
+ * Ottiene la stringa tradotta per la chiave specificata nella lingua corrente
+ */
+function t(key) {
+  return (I18N_TRANSLATIONS[state.lang] && I18N_TRANSLATIONS[state.lang][key]) || key;
+}
+
+/**
+ * Aggiorna tutti gli elementi HTML contrassegnati con data-i18n
+ */
+function updateStaticTranslations() {
+  document.documentElement.lang = state.lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (key && I18N_TRANSLATIONS[state.lang][key]) {
+      el.innerHTML = I18N_TRANSLATIONS[state.lang][key];
+    }
+  });
+
+  if (dom.langToggle) {
+    dom.langToggle.textContent = state.lang === 'it' ? 'IT 🇮🇹 | EN' : 'EN 🇬🇧 | IT';
+  }
+}
+
+/**
+ * Attiva o disattiva la lingua dell'applicazione tra Italiano e Inglese
+ */
+function setLanguage(lang) {
+  state.lang = lang;
+  localStorage.setItem('app_lang', lang);
+  updateStaticTranslations();
+  initShowerSelector();
+  recalculateTargetCoordinates();
+  renderHUDUpdates();
+}
 
 /* ==========================================================================
    2. MATEMATICA ASTRONOMICA (Conversione da RA/Dec a Azimut/Altitudine)
@@ -247,36 +378,44 @@ function findClosestPeakShower() {
  * Popola il menu a tendina e seleziona lo sciame attivo
  */
 function initShowerSelector() {
+  const currentSelectedValue = dom.showerSelect.value;
   dom.showerSelect.innerHTML = '';
   const defaultShower = findClosestPeakShower();
 
   METEOR_SHOWERS.forEach(shower => {
     const option = document.createElement('option');
     option.value = shower.id;
-    option.textContent = `${shower.name} (Picco: ${shower.peakDay}/${shower.peakMonth})`;
-    if (shower.id === defaultShower.id) {
+    const showerName = shower.name[state.lang] || shower.name['it'];
+    option.textContent = `${showerName} (${t('peakText')}: ${shower.peakDay}/${shower.peakMonth})`;
+    
+    if (currentSelectedValue ? shower.id === currentSelectedValue : shower.id === defaultShower.id) {
       option.selected = true;
+      state.activeShower = shower;
     }
     dom.showerSelect.appendChild(option);
   });
 
-  state.activeShower = defaultShower;
+  if (!state.activeShower) {
+    state.activeShower = defaultShower;
+  }
   updateShowerDetails();
 
-  dom.showerSelect.addEventListener('change', (e) => {
+  dom.showerSelect.onchange = (e) => {
     const selected = METEOR_SHOWERS.find(s => s.id === e.target.value);
     if (selected) {
       state.activeShower = selected;
       updateShowerDetails();
       recalculateTargetCoordinates();
     }
-  });
+  };
 }
 
 function updateShowerDetails() {
   if (!state.activeShower) return;
-  dom.showerDatesInfo.textContent = `Periodo di attività: ${state.activeShower.activeSpan} | RA: ${state.activeShower.ra}h Dec: ${state.activeShower.dec}°`;
-  dom.radiantLabelHud.textContent = state.activeShower.name.split(' ')[0].toUpperCase();
+  const activeSpan = state.activeShower.activeSpan[state.lang] || state.activeShower.activeSpan['it'];
+  const showerName = state.activeShower.name[state.lang] || state.activeShower.name['it'];
+  dom.showerDatesInfo.textContent = `${t('activeSpanLabel')}: ${activeSpan} | RA: ${state.activeShower.ra}h Dec: ${state.activeShower.dec}°`;
+  dom.radiantLabelHud.textContent = showerName.split(' ')[0].toUpperCase();
 }
 
 /**
@@ -302,10 +441,10 @@ function recalculateTargetCoordinates() {
   dom.targetAlt.textContent = `${Math.round(state.targetAltitude)}°`;
 
   if (state.targetAltitude < 0) {
-    dom.targetVisibility.textContent = "SOTTO L'ORIZZONTE";
+    dom.targetVisibility.textContent = t('statusBelowHorizon');
     dom.targetVisibility.style.color = "#883333";
   } else {
-    dom.targetVisibility.textContent = "VISIBILE IN CIELO";
+    dom.targetVisibility.textContent = t('statusVisible');
     dom.targetVisibility.style.color = "#00ff66";
   }
 
@@ -325,11 +464,11 @@ function recalculateTargetCoordinates() {
  */
 function initGPS() {
   if (!('geolocation' in navigator)) {
-    dom.gpsStatus.textContent = 'Non supportato';
+    dom.gpsStatus.textContent = t('gpsUnsupported');
     return;
   }
 
-  dom.gpsStatus.textContent = 'Ricerca...';
+  dom.gpsStatus.textContent = t('gpsSearching');
 
   navigator.geolocation.watchPosition(
     (position) => {
@@ -341,7 +480,7 @@ function initGPS() {
     },
     (error) => {
       console.warn('GPS Error/Permission Denied:', error);
-      dom.gpsStatus.textContent = 'Usa Default (Roma)';
+      dom.gpsStatus.textContent = t('gpsDefault');
       recalculateTargetCoordinates();
     },
     {
@@ -362,25 +501,25 @@ async function requestOrientationPermission() {
       const permissionState = await DeviceOrientationEvent.requestPermission();
       if (permissionState === 'granted') {
         window.addEventListener('deviceorientation', handleOrientation, true);
-        dom.compassStatus.textContent = 'Attiva (iOS)';
+        dom.compassStatus.textContent = t('compassActiveIos');
       } else {
-        dom.compassStatus.textContent = 'Negato (iOS)';
-        alert('I permessi per la bussola sono stati negati. Abilitali nelle impostazioni di Safari/iOS.');
+        dom.compassStatus.textContent = t('compassDeniedIos');
+        alert(t('compassDeniedAlert'));
       }
     } catch (err) {
       console.error('DeviceOrientation permission error:', err);
-      dom.compassStatus.textContent = 'Errore Permessi';
+      dom.compassStatus.textContent = t('compassError');
     }
   } else if ('ondeviceorientationabsolute' in window) {
     // Android Absolute Orientation se supportato
     window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-    dom.compassStatus.textContent = 'Attiva (Absolute)';
+    dom.compassStatus.textContent = t('compassActiveAbsolute');
   } else if ('ondeviceorientation' in window) {
     // Fallback standard Android / Browser Desktop
     window.addEventListener('deviceorientation', handleOrientation, true);
-    dom.compassStatus.textContent = 'Attiva (Standard)';
+    dom.compassStatus.textContent = t('compassActiveStandard');
   } else {
-    dom.compassStatus.textContent = 'Non supportato';
+    dom.compassStatus.textContent = t('compassUnsupported');
   }
 }
 
@@ -465,16 +604,16 @@ function updateGuidancePrompts(azDiff, altDiff, absAzDiff, absAltDiff) {
   let subMessage = "";
 
   if (absAzDiff <= 5 && absAltDiff <= 5) {
-    message = "🎯 RADIANTE PUNTATO!";
-    subMessage = "Sei esattamente nel mirino dello sciame!";
+    message = t('targetLockedTitle');
+    subMessage = t('targetLockedSub');
   } else {
     // Guida Orizzontale (Azimut)
     let azText = "";
     if (absAzDiff > 5) {
       if (azDiff > 0) {
-        azText = `Girati a DESTRA (${Math.round(absAzDiff)}°)`;
+        azText = `${t('turnRight')} (${Math.round(absAzDiff)}°)`;
       } else {
-        azText = `Girati a SINISTRA (${Math.round(absAzDiff)}°)`;
+        azText = `${t('turnLeft')} (${Math.round(absAzDiff)}°)`;
       }
     }
 
@@ -482,21 +621,21 @@ function updateGuidancePrompts(azDiff, altDiff, absAzDiff, absAltDiff) {
     let altText = "";
     if (absAltDiff > 5) {
       if (altDiff > 0) {
-        altText = `ALZA il telefono (${Math.round(absAltDiff)}°)`;
+        altText = `${t('pitchUp')} (${Math.round(absAltDiff)}°)`;
       } else {
-        altText = `ABBASSA il telefono (${Math.round(absAltDiff)}°)`;
+        altText = `${t('pitchDown')} (${Math.round(absAltDiff)}°)`;
       }
     }
 
     if (azText && altText) {
       message = `${azText}`;
-      subMessage = `e ${altText.toLowerCase()}`;
+      subMessage = `${t('andWord')} ${altText.toLowerCase()}`;
     } else if (azText) {
       message = azText;
-      subMessage = "Altezza corretta";
+      subMessage = t('correctAlt');
     } else if (altText) {
       message = altText;
-      subMessage = "Direzione azimutale corretta";
+      subMessage = t('correctAz');
     }
   }
 
@@ -542,9 +681,18 @@ function registerServiceWorker() {
 
 // Inizializzazione degli eventi dell'applicazione al caricamento del DOM
 document.addEventListener('DOMContentLoaded', () => {
+  updateStaticTranslations();
   initShowerSelector();
   recalculateTargetCoordinates();
   registerServiceWorker();
+
+  // Toggle cambio lingua IT / EN
+  if (dom.langToggle) {
+    dom.langToggle.addEventListener('click', () => {
+      const nextLang = state.lang === 'it' ? 'en' : 'it';
+      setLanguage(nextLang);
+    });
+  }
 
   // Timer per ricalcolare la posizione astronomica del radiante ogni 30 secondi (il cielo ruota lentamente)
   setInterval(() => {
