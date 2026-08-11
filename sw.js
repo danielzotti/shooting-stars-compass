@@ -1,4 +1,4 @@
-const CACHE_NAME = 'star-compass-v2';
+const CACHE_NAME = 'star-compass-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

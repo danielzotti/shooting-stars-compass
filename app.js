@@ -673,12 +673,10 @@ function handleTargetLockState(locked) {
   if (locked) {
     document.body.classList.add('target-locked');
     
-    // Feedback con vibrazione (evita di vibrare in continuo in modo fastidioso)
+    // Feedback con vibrazione ed audio radar ping
     const now = Date.now();
     if (now - state.lastVibrationTime > 1200) {
-      if ('vibrate' in navigator) {
-        navigator.vibrate([100, 50, 100]); // Pulsazione vibrante doppia
-      }
+      triggerHapticFeedback();
       state.lastVibrationTime = now;
     }
   } else {
@@ -723,7 +721,86 @@ document.addEventListener('DOMContentLoaded', () => {
   // Click sul pulsante Inizia (Attiva sensori e nasconde overlay modal)
   dom.btnStart.addEventListener('click', async () => {
     dom.startModal.classList.add('hidden');
+    initAudioContext();
     initGPS();
     await requestOrientationPermission();
   });
 });
+
+/* ==========================================================================
+   AUDIO-HAPTIC FEEDBACK (Web Audio API & Navigator Vibrate)
+   ========================================================================== */
+
+let audioCtx = null;
+
+/**
+ * Inizializza o riattiva l'AudioContext del browser in risposta ad un gesto utente
+ */
+function initAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+}
+
+/**
+ * Riproduce un suono sintetizzato di "Lock-On" (radar ping armonico)
+ */
+function playLockOnSound() {
+  if (!audioCtx) return;
+  try {
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    const now = audioCtx.currentTime;
+
+    // Primo bip a 880 Hz
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(880, now);
+    gain1.gain.setValueAtTime(0.15, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+    osc1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    osc1.start(now);
+    osc1.stop(now + 0.08);
+
+    // Secondo bip armonico a 1760 Hz
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(1760, now + 0.1);
+    gain2.gain.setValueAtTime(0.2, now + 0.1);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.start(now + 0.1);
+    osc2.stop(now + 0.22);
+  } catch (e) {
+    console.warn('Audio feedback error:', e);
+  }
+}
+
+/**
+ * Attiva il feedback tattile/acustico (Vibrazione + Suono)
+ */
+function triggerHapticFeedback() {
+  // 1. Vibrazione fisica (Android / Chrome dove supportato)
+  try {
+    if ('vibrate' in navigator && typeof navigator.vibrate === 'function') {
+      navigator.vibrate([100, 50, 100]);
+    }
+  } catch (e) {
+    console.warn('Vibration API error:', e);
+  }
+
+  // 2. Audio Radar Ping (Fallback per iOS Safari e dispositivi senza motorino di vibrazione)
+  playLockOnSound();
+}
+
