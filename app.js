@@ -187,8 +187,8 @@ const I18N_TRANSLATIONS = {
 // Stato globale dell'applicazione
 const state = {
   lang: localStorage.getItem('app_lang') || (navigator.language && navigator.language.startsWith('it') ? 'it' : 'en'),
-  audioMuted: localStorage.getItem('app_audio_muted') === 'true',
-  vibeMuted: localStorage.getItem('app_vibe_muted') === 'true',
+  audioMuted: localStorage.getItem('app_audio_muted') !== null ? localStorage.getItem('app_audio_muted') === 'true' : true,
+  vibeMuted: localStorage.getItem('app_vibe_muted') !== null ? localStorage.getItem('app_vibe_muted') === 'true' : true,
   activeShower: null,
   userCoords: { lat: 41.9028, lon: 12.4964 }, // Roma come fallback standard
   hasGPS: false,
@@ -726,6 +726,9 @@ document.addEventListener('DOMContentLoaded', () => {
       state.audioMuted = !state.audioMuted;
       localStorage.setItem('app_audio_muted', state.audioMuted);
       updateAudioToggleUI();
+      if (!state.audioMuted) {
+        initAudioContext();
+      }
     });
   }
 
@@ -736,6 +739,15 @@ document.addEventListener('DOMContentLoaded', () => {
       state.vibeMuted = !state.vibeMuted;
       localStorage.setItem('app_vibe_muted', state.vibeMuted);
       updateVibeToggleUI();
+      if (!state.vibeMuted) {
+        try {
+          if ('vibrate' in navigator && typeof navigator.vibrate === 'function') {
+            navigator.vibrate(30);
+          }
+        } catch (e) {
+          console.warn('Vibration toggle trigger failed:', e);
+        }
+      }
     });
   }
 
