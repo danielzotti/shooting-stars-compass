@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SHOOTING STARS COMPASS - APP LOGIC & ASTRONOMICAL CALCULATIONS (app.js)
+   SHOOTING STARS - APP LOGIC & ASTRONOMICAL CALCULATIONS (app.js)
    ========================================================================== */
 
 /**

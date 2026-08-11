@@ -1,4 +1,4 @@
-# 🌌 Shooting Stars Compass
+# 🌌 Shooting Stars
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?logo=github)](https://danielzotti.github.io/shooting-stars-compass/)
 [![PWA Ready](https://img.shields.io/badge/PWA-Offline%20First-blue?logo=pwa)](https://danielzotti.github.io/shooting-stars-compass/)
@@ -11,9 +11,9 @@
 <a name="english"></a>
 ## 🇬🇧 English
 
-**Shooting Stars Compass** is an offline-first Progressive Web App (PWA) and augmented-reality Heads-Up Display (HUD) astronomical compass designed to guide stargazers and astronomy enthusiasts toward the **radiant point** of major meteor showers (such as the Perseids, Geminids, Orionids, and Quadrantids).
+**Shooting Stars** is an offline-first Progressive Web App (PWA) and augmented-reality Heads-Up Display (HUD) astronomical compass designed to guide stargazers and astronomy enthusiasts toward the **radiant point** of major meteor showers (such as the Perseids, Geminids, Orionids, and Quadrantids).
 
-![Shooting Stars Compass Preview](og-image.png)
+![Shooting Stars Preview](og-image.png)
 
 ### 🌟 Key Features
 
@@ -63,7 +63,7 @@ The application comes pre-loaded with ephemeris data for major annual meteor sho
 <a name="italiano"></a>
 ## 🇮🇹 Italiano
 
-**Shooting Stars Compass** è un'applicazione web progressiva (PWA) offline-first e bussola astronomica in realtà aumentata (HUD) progettata per guidare gli appassionati di astronomia verso il **radiante** dei principali sciami meteorici (come le Perseidi, Geminidi, Orionidi e Quadrantidi).
+**Shooting Stars** è un'applicazione web progressiva (PWA) offline-first e bussola astronomica in realtà aumentata (HUD) progettata per guidare gli appassionati di astronomia verso il **radiante** dei principali sciami meteorici (come le Perseidi, Geminidi, Orionidi e Quadrantidi).
 
 ### 🌟 Caratteristiche Principali
 

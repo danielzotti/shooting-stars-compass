@@ -1,6 +1,6 @@
 {
-  "name": "Shooting Stars Compass",
-  "short_name": "StarCompass",
+  "name": "Shooting Stars",
+  "short_name": "Shooting Stars",
   "description": "Bussola astronomica offline per individuare il radiante delle stelle cadenti (sciami meteorici).",
   "start_url": "./index.html",
   "display": "standalone",
