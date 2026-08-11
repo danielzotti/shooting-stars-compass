@@ -27,7 +27,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -43,12 +44,12 @@ html, body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  background: 
-    radial-gradient(1px 1px at 20px 30px, var(--dim-text), rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 100px 150px, var(--primary-red), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 220px 70px, var(--amber-orange), rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 310px 290px, var(--dim-text), rgba(0,0,0,0));
+  height: 100svh;
+  background:
+    radial-gradient(1px 1px at 20px 30px, var(--dim-text), rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 100px 150px, var(--primary-red), rgba(0, 0, 0, 0)),
+    radial-gradient(1.5px 1.5px at 220px 70px, var(--amber-orange), rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 310px 290px, var(--dim-text), rgba(0, 0, 0, 0));
   background-size: 350px 350px;
   opacity: 0.3;
   pointer-events: none;
@@ -74,7 +75,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background: linear-gradient(180deg, rgba(15,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(180deg, rgba(15, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .shower-selector-container {
@@ -107,7 +108,6 @@ html, body {
   flex-shrink: 0;
 }
 
-.icon-toggle-btn,
 .lang-toggle-btn {
   background: #1a0000;
   color: var(--amber-orange);
@@ -119,26 +119,55 @@ html, body {
   cursor: pointer;
   letter-spacing: 0.5px;
   box-shadow: 0 0 8px var(--amber-orange-glow);
-  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
-.icon-toggle-btn {
-  font-size: 0.9rem;
-  padding: 4px 8px;
+/* AUDIO & VIBE QUICK CONTROLS BAR (Single Row in Header) */
+.quick-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
 }
 
-.icon-toggle-btn.muted {
-  opacity: 0.5;
-  border-color: var(--dim-text);
-  color: var(--dim-text);
+.toggle-pill-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #120000;
+  border: 1px solid var(--amber-orange);
+  border-radius: 6px;
+  color: var(--amber-orange);
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--amber-orange-glow);
+}
+
+.toggle-pill-btn .btn-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.toggle-pill-btn .btn-text {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--amber-orange);
+  white-space: nowrap;
+}
+
+.toggle-pill-btn.muted {
+  opacity: 0.55;
+  border-color: var(--border-color);
+  background: #0a0000;
   box-shadow: none;
 }
 
-.icon-toggle-btn:hover, .icon-toggle-btn:active,
-.lang-toggle-btn:hover, .lang-toggle-btn:active {
-  background: var(--amber-orange);
-  color: #000;
+.toggle-pill-btn.muted .btn-text {
+  color: var(--dim-text);
 }
 
 .badge-active {
@@ -190,7 +219,7 @@ html, body {
 .compass-viewport {
   position: relative;
   flex: 1;
-  height: calc(100vh - 170px);
+  height: calc(100svh - 170px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -271,10 +300,31 @@ html, body {
   color: var(--primary-red);
 }
 
-.cardinal.n { top: 6px; left: 50%; transform: translateX(-50%); color: #ffffff; text-shadow: 0 0 6px var(--primary-red); }
-.cardinal.e { right: 8px; top: 50%; transform: translateY(-50%); }
-.cardinal.s { bottom: 6px; left: 50%; transform: translateX(-50%); }
-.cardinal.w { left: 8px; top: 50%; transform: translateY(-50%); }
+.cardinal.n {
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  text-shadow: 0 0 6px var(--primary-red);
+}
+
+.cardinal.e {
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cardinal.s {
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cardinal.w {
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 /* Target Pointer & Radiant Marker */
 .target-pointer-container {
@@ -320,8 +370,13 @@ html, body {
 }
 
 @keyframes pulse-radiant {
-  0% { transform: scale(0.9); }
-  100% { transform: scale(1.15); }
+  0% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1.15);
+  }
 }
 
 /* Central Reticle Crosshair */
@@ -380,8 +435,13 @@ body.target-locked .lock-box {
 }
 
 @keyframes lock-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* GUIDANCE OVERLAY TEXT */

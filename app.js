@@ -207,7 +207,9 @@ const dom = {
   showerSelect: document.getElementById('shower-select'),
   langToggle: document.getElementById('lang-toggle'),
   audioToggle: document.getElementById('audio-toggle'),
+  audioToggleText: document.getElementById('audio-toggle-text'),
   vibeToggle: document.getElementById('vibe-toggle'),
+  vibeToggleText: document.getElementById('vibe-toggle-text'),
   activeBadge: document.getElementById('active-badge'),
   targetAz: document.getElementById('target-az'),
   targetAlt: document.getElementById('target-alt'),
@@ -762,32 +764,42 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Aggiorna lo stato visivo del pulsante audio (🔊 / 🔇)
+ * Aggiorna lo stato visivo del pulsante audio (🔊 AUDIO ON / 🔇 AUDIO OFF)
  */
 function updateAudioToggleUI() {
   if (!dom.audioToggle) return;
+  const iconEl = dom.audioToggle.querySelector('.btn-icon');
+  const textEl = dom.audioToggleText;
+
   if (state.audioMuted) {
-    dom.audioToggle.textContent = '🔇';
+    if (iconEl) iconEl.textContent = '🔇';
+    if (textEl) textEl.textContent = 'AUDIO OFF';
     dom.audioToggle.classList.add('muted');
     dom.audioToggle.setAttribute('aria-label', state.lang === 'it' ? 'Attiva Audio' : 'Unmute Audio');
   } else {
-    dom.audioToggle.textContent = '🔊';
+    if (iconEl) iconEl.textContent = '🔊';
+    if (textEl) textEl.textContent = 'AUDIO ON';
     dom.audioToggle.classList.remove('muted');
     dom.audioToggle.setAttribute('aria-label', state.lang === 'it' ? 'Disattiva Audio' : 'Mute Audio');
   }
 }
 
 /**
- * Aggiorna lo stato visivo del pulsante vibrazione (📳 / 📴)
+ * Aggiorna lo stato visivo del pulsante vibrazione (📳 VIBE ON / 📴 VIBE OFF)
  */
 function updateVibeToggleUI() {
   if (!dom.vibeToggle) return;
+  const iconEl = dom.vibeToggle.querySelector('.btn-icon');
+  const textEl = dom.vibeToggleText;
+
   if (state.vibeMuted) {
-    dom.vibeToggle.textContent = '📴';
+    if (iconEl) iconEl.textContent = '📴';
+    if (textEl) textEl.textContent = 'VIBE OFF';
     dom.vibeToggle.classList.add('muted');
     dom.vibeToggle.setAttribute('aria-label', state.lang === 'it' ? 'Attiva Vibrazione' : 'Enable Vibration');
   } else {
-    dom.vibeToggle.textContent = '📳';
+    if (iconEl) iconEl.textContent = '📳';
+    if (textEl) textEl.textContent = 'VIBE ON';
     dom.vibeToggle.classList.remove('muted');
     dom.vibeToggle.setAttribute('aria-label', state.lang === 'it' ? 'Disattiva Vibrazione' : 'Disable Vibration');
   }

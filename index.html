@@ -88,10 +88,20 @@
         <!-- Calcolato dinamicamente da app.js -->
       </select>
       <div class="lang-switch-container">
-        <button id="audio-toggle" class="icon-toggle-btn" aria-label="Attiva/Disattiva Audio" title="Audio">🔊</button>
-        <button id="vibe-toggle" class="icon-toggle-btn" aria-label="Attiva/Disattiva Vibrazione" title="Vibrazione">📳</button>
         <button id="lang-toggle" class="lang-toggle-btn" aria-label="Cambia lingua">IT | EN</button>
       </div>
+    </div>
+
+    <!-- Quick Audio & Vibration Controls Bar (Single Row) -->
+    <div class="quick-controls-bar">
+      <button id="audio-toggle" class="toggle-pill-btn" aria-label="Attiva/Disattiva Audio" title="Audio">
+        <span class="btn-icon">🔊</span>
+        <span class="btn-text" id="audio-toggle-text">AUDIO ON</span>
+      </button>
+      <button id="vibe-toggle" class="toggle-pill-btn" aria-label="Attiva/Disattiva Vibrazione" title="Vibrazione">
+        <span class="btn-icon">📳</span>
+        <span class="btn-text" id="vibe-toggle-text">VIBE ON</span>
+      </button>
     </div>
 
     <!-- Active Shower Astronomical Info Bar -->
