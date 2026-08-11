@@ -103,9 +103,11 @@ html, body {
 .lang-switch-container {
   display: flex;
   align-items: center;
+  gap: 6px;
   flex-shrink: 0;
 }
 
+.icon-toggle-btn,
 .lang-toggle-btn {
   background: #1a0000;
   color: var(--amber-orange);
@@ -121,6 +123,19 @@ html, body {
   white-space: nowrap;
 }
 
+.icon-toggle-btn {
+  font-size: 0.9rem;
+  padding: 4px 8px;
+}
+
+.icon-toggle-btn.muted {
+  opacity: 0.5;
+  border-color: var(--dim-text);
+  color: var(--dim-text);
+  box-shadow: none;
+}
+
+.icon-toggle-btn:hover, .icon-toggle-btn:active,
 .lang-toggle-btn:hover, .lang-toggle-btn:active {
   background: var(--amber-orange);
   color: #000;

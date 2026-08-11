@@ -187,6 +187,8 @@ const I18N_TRANSLATIONS = {
 // Stato globale dell'applicazione
 const state = {
   lang: localStorage.getItem('app_lang') || (navigator.language && navigator.language.startsWith('it') ? 'it' : 'en'),
+  audioMuted: localStorage.getItem('app_audio_muted') === 'true',
+  vibeMuted: localStorage.getItem('app_vibe_muted') === 'true',
   activeShower: null,
   userCoords: { lat: 41.9028, lon: 12.4964 }, // Roma come fallback standard
   hasGPS: false,
@@ -204,6 +206,8 @@ const dom = {
   btnStart: document.getElementById('btn-start'),
   showerSelect: document.getElementById('shower-select'),
   langToggle: document.getElementById('lang-toggle'),
+  audioToggle: document.getElementById('audio-toggle'),
+  vibeToggle: document.getElementById('vibe-toggle'),
   activeBadge: document.getElementById('active-badge'),
   targetAz: document.getElementById('target-az'),
   targetAlt: document.getElementById('target-alt'),
@@ -713,6 +717,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Toggle disattivazione/attivazione audio
+  updateAudioToggleUI();
+  if (dom.audioToggle) {
+    dom.audioToggle.addEventListener('click', () => {
+      state.audioMuted = !state.audioMuted;
+      localStorage.setItem('app_audio_muted', state.audioMuted);
+      updateAudioToggleUI();
+    });
+  }
+
+  // Toggle disattivazione/attivazione vibrazione
+  updateVibeToggleUI();
+  if (dom.vibeToggle) {
+    dom.vibeToggle.addEventListener('click', () => {
+      state.vibeMuted = !state.vibeMuted;
+      localStorage.setItem('app_vibe_muted', state.vibeMuted);
+      updateVibeToggleUI();
+    });
+  }
+
   // Timer per ricalcolare la posizione astronomica del radiante ogni 30 secondi (il cielo ruota lentamente)
   setInterval(() => {
     recalculateTargetCoordinates();
@@ -722,10 +746,52 @@ document.addEventListener('DOMContentLoaded', () => {
   dom.btnStart.addEventListener('click', async () => {
     dom.startModal.classList.add('hidden');
     initAudioContext();
+    // Inizializza vibrazione al primo gesto dell'utente (richiesto dai browser moderni)
+    if (!state.vibeMuted) {
+      try {
+        if ('vibrate' in navigator && typeof navigator.vibrate === 'function') {
+          navigator.vibrate(20);
+        }
+      } catch (e) {
+        console.warn('Initial dummy vibration failed:', e);
+      }
+    }
     initGPS();
     await requestOrientationPermission();
   });
 });
+
+/**
+ * Aggiorna lo stato visivo del pulsante audio (🔊 / 🔇)
+ */
+function updateAudioToggleUI() {
+  if (!dom.audioToggle) return;
+  if (state.audioMuted) {
+    dom.audioToggle.textContent = '🔇';
+    dom.audioToggle.classList.add('muted');
+    dom.audioToggle.setAttribute('aria-label', state.lang === 'it' ? 'Attiva Audio' : 'Unmute Audio');
+  } else {
+    dom.audioToggle.textContent = '🔊';
+    dom.audioToggle.classList.remove('muted');
+    dom.audioToggle.setAttribute('aria-label', state.lang === 'it' ? 'Disattiva Audio' : 'Mute Audio');
+  }
+}
+
+/**
+ * Aggiorna lo stato visivo del pulsante vibrazione (📳 / 📴)
+ */
+function updateVibeToggleUI() {
+  if (!dom.vibeToggle) return;
+  if (state.vibeMuted) {
+    dom.vibeToggle.textContent = '📴';
+    dom.vibeToggle.classList.add('muted');
+    dom.vibeToggle.setAttribute('aria-label', state.lang === 'it' ? 'Attiva Vibrazione' : 'Enable Vibration');
+  } else {
+    dom.vibeToggle.textContent = '📳';
+    dom.vibeToggle.classList.remove('muted');
+    dom.vibeToggle.setAttribute('aria-label', state.lang === 'it' ? 'Disattiva Vibrazione' : 'Disable Vibration');
+  }
+}
 
 /* ==========================================================================
    AUDIO-HAPTIC FEEDBACK (Web Audio API & Navigator Vibrate)
@@ -752,7 +818,7 @@ function initAudioContext() {
  * Riproduce un suono sintetizzato di "Lock-On" (radar ping armonico)
  */
 function playLockOnSound() {
-  if (!audioCtx) return;
+  if (state.audioMuted || !audioCtx) return;
   try {
     if (audioCtx.state === 'suspended') {
       audioCtx.resume();
@@ -791,16 +857,22 @@ function playLockOnSound() {
  * Attiva il feedback tattile/acustico (Vibrazione + Suono)
  */
 function triggerHapticFeedback() {
-  // 1. Vibrazione fisica (Android / Chrome dove supportato)
-  try {
-    if ('vibrate' in navigator && typeof navigator.vibrate === 'function') {
-      navigator.vibrate([100, 50, 100]);
+  // 1. Vibrazione fisica (Android / Chrome dove supportato e se non silenziato dall'utente)
+  if (!state.vibeMuted) {
+    try {
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+        // Prova sequenza di vibrazione singola se il pattern fallisce
+        const success = navigator.vibrate([150, 80, 150]);
+        if (!success) {
+          navigator.vibrate(200);
+        }
+      }
+    } catch (e) {
+      console.warn('Vibration API error:', e);
     }
-  } catch (e) {
-    console.warn('Vibration API error:', e);
   }
 
-  // 2. Audio Radar Ping (Fallback per iOS Safari e dispositivi senza motorino di vibrazione)
+  // 2. Audio Radar Ping (se l'audio non è silenziato)
   playLockOnSound();
 }
 
