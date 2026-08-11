@@ -556,7 +556,11 @@ function handleOrientation(event) {
  * Calcola la nuova rotazione cumulativa mantenendo il tragitto più breve per evitare scatti tra 359° e 0°
  */
 function getShortestRotation(currentRotation, targetAngle) {
-  let diff = (targetAngle - currentRotation) % 360;
+  // Bring targetAngle into standard range [0, 360)
+  targetAngle = (targetAngle % 360 + 360) % 360;
+  // Current orientation in [0, 360)
+  let currentNormalized = (currentRotation % 360 + 360) % 360;
+  let diff = targetAngle - currentNormalized;
   if (diff < -180) diff += 360;
   if (diff > 180) diff -= 360;
   return currentRotation + diff;
