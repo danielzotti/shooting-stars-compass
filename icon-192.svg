@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" fill="#000000"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#ff2a2a" stroke-width="8" opacity="0.4"/>
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#ff6b00" stroke-width="4" stroke-dasharray="8 8" opacity="0.6"/>
+  
+  <!-- Compass crosshair -->
+  <line x1="256" y1="20" x2="256" y2="492" stroke="#ff2a2a" stroke-width="3" opacity="0.3"/>
+  <line x1="20" y1="256" x2="492" y2="256" stroke="#ff2a2a" stroke-width="3" opacity="0.3"/>
+  
+  <!-- Shooting Star Symbol -->
+  <path d="M 256 120 L 268 220 L 368 232 L 285 275 L 315 375 L 256 310 L 197 375 L 227 275 L 144 232 L 244 220 Z" fill="#ff2a2a"/>
+  
+  <!-- Meteor Trails -->
+  <line x1="120" y1="120" x2="220" y2="220" stroke="#ff8800" stroke-width="6" stroke-linecap="round"/>
+  <line x1="80" y1="200" x2="180" y2="250" stroke="#ff2a2a" stroke-width="4" stroke-linecap="round"/>
+  <line x1="300" y1="80" x2="270" y2="180" stroke="#ffaa00" stroke-width="5" stroke-linecap="round"/>
+</svg>

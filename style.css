@@ -1,0 +1,498 @@
+/* ==========================================================================
+   SHOOTING STARS COMPASS - NIGHT VISION DESIGN SYSTEM (CSS)
+   Night Vision Dark Mode: Pure Black Base (#000) & Deep Crimson/Amber Accents
+   ========================================================================== */
+
+:root {
+  --bg-color: #000000;
+  --panel-bg: rgba(20, 0, 0, 0.85);
+  --primary-red: #ff2a2a;
+  --primary-red-glow: rgba(255, 42, 42, 0.4);
+  --amber-orange: #ff7700;
+  --amber-orange-glow: rgba(255, 119, 0, 0.3);
+  --dim-text: #883333;
+  --bright-text: #ffcccc;
+  --success-green: #00ff66;
+  --success-glow: rgba(0, 255, 102, 0.6);
+  --border-color: #441111;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  color: var(--primary-red);
+  font-family: var(--font-family);
+  font-size: 14px;
+}
+
+/* Subtle background stars texture */
+.stars-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    radial-gradient(1px 1px at 20px 30px, var(--dim-text), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 100px 150px, var(--primary-red), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 220px 70px, var(--amber-orange), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 310px 290px, var(--dim-text), rgba(0,0,0,0));
+  background-size: 350px 350px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* HEADER & ASTRO DATA CARD */
+.app-header {
+  position: relative;
+  z-index: 10;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(15,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
+}
+
+.shower-selector-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shower-select {
+  flex: 1;
+  background-color: #120000;
+  color: var(--bright-text);
+  border: 1px solid var(--primary-red);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  box-shadow: 0 0 10px var(--primary-red-glow);
+}
+
+.badge-active {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: var(--primary-red);
+  color: #000;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.info-card {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-label {
+  font-size: 0.65rem;
+  color: var(--dim-text);
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--bright-text);
+}
+
+.status-tag {
+  font-size: 0.85rem;
+  color: var(--amber-orange);
+}
+
+/* MAIN COMPASS VIEWPORT & HUD */
+.compass-viewport {
+  position: relative;
+  flex: 1;
+  height: calc(100vh - 170px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Pitch / Elevation Meter (Left Axis) */
+.pitch-container {
+  position: absolute;
+  left: 12px;
+  top: 15%;
+  bottom: 25%;
+  width: 24px;
+  background: rgba(30, 0, 0, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  z-index: 5;
+}
+
+.pitch-scale {
+  position: absolute;
+  inset: 0;
+}
+
+.pitch-mark {
+  position: absolute;
+  left: 28px;
+  font-size: 0.65rem;
+  color: var(--dim-text);
+  transform: translateY(50%);
+}
+
+.pitch-target-bar {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  height: 4px;
+  background-color: var(--amber-orange);
+  box-shadow: 0 0 8px var(--amber-orange);
+  border-radius: 2px;
+  transition: bottom 0.2s ease-out;
+}
+
+.pitch-current-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-color: var(--primary-red);
+  box-shadow: 0 0 10px var(--primary-red-glow);
+  border-radius: 3px;
+  transition: bottom 0.1s linear;
+}
+
+/* HUD Center & Compass Ring */
+.hud-center {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compass-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px stroke var(--border-color);
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 42, 42, 0.3);
+  transition: transform 0.1s linear;
+}
+
+.cardinal {
+  position: absolute;
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--primary-red);
+}
+
+.cardinal.n { top: 6px; left: 50%; transform: translateX(-50%); color: #ffffff; text-shadow: 0 0 6px var(--primary-red); }
+.cardinal.e { right: 8px; top: 50%; transform: translateY(-50%); }
+.cardinal.s { bottom: 6px; left: 50%; transform: translateX(-50%); }
+.cardinal.w { left: 8px; top: 50%; transform: translateY(-50%); }
+
+/* Target Pointer & Radiant Marker */
+.target-pointer-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: transform 0.1s linear;
+}
+
+.target-pointer-line {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--amber-orange), transparent);
+  transform: translateX(-50%);
+}
+
+.target-radiant-marker {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 0 8px var(--amber-orange));
+}
+
+.radiant-icon {
+  font-size: 1.6rem;
+  animation: pulse-radiant 1.5s infinite alternate;
+}
+
+.radiant-name {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: var(--amber-orange);
+  color: #000;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+@keyframes pulse-radiant {
+  0% { transform: scale(0.9); }
+  100% { transform: scale(1.15); }
+}
+
+/* Central Reticle Crosshair */
+.reticle {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border: 1px solid rgba(255, 42, 42, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.crosshair {
+  position: absolute;
+  background-color: var(--primary-red);
+  opacity: 0.6;
+}
+
+.crosshair.horizontal {
+  width: 100%;
+  height: 1px;
+}
+
+.crosshair.vertical {
+  width: 1px;
+  height: 100%;
+}
+
+.lock-box {
+  width: 45px;
+  height: 45px;
+  border: 2px stroke var(--amber-orange);
+  border: 2px dashed var(--amber-orange);
+  transition: all 0.2s ease;
+}
+
+/* TARGET LOCK ON ACTIVE STATE (±5 DEGREE ACCURACY) */
+body.target-locked .reticle {
+  border-color: var(--success-green);
+  box-shadow: 0 0 25px var(--success-glow), inset 0 0 15px var(--success-glow);
+  transform: scale(1.15);
+}
+
+body.target-locked .crosshair {
+  background-color: var(--success-green);
+  opacity: 1;
+}
+
+body.target-locked .lock-box {
+  border-color: var(--success-green);
+  border-style: solid;
+  animation: lock-spin 3s linear infinite;
+}
+
+@keyframes lock-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* GUIDANCE OVERLAY TEXT */
+.guidance-overlay {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+.guidance-text {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--bright-text);
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px var(--primary-red-glow);
+  text-align: center;
+  padding: 0 10px;
+}
+
+.angle-offset-text {
+  font-size: 0.85rem;
+  color: var(--amber-orange);
+  margin-top: 4px;
+}
+
+body.target-locked .guidance-text {
+  color: var(--success-green);
+  text-shadow: 0 0 15px var(--success-glow);
+}
+
+/* FOOTER & SENSOR STATUS BAR */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 16px;
+  background-color: rgba(10, 0, 0, 0.95);
+  border-top: 1px solid var(--border-color);
+  z-index: 10;
+}
+
+.sensor-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--dim-text);
+}
+
+.sensor-stats strong {
+  color: var(--bright-text);
+}
+
+.shower-details {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: var(--amber-orange);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* MODAL OVERLAY FOR SENSOR PERMISSIONS & START */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.modal-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-content {
+  background-color: #120202;
+  border: 2px solid var(--primary-red);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 30px var(--primary-red-glow);
+}
+
+.modal-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.modal-content h2 {
+  color: var(--bright-text);
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.modal-desc {
+  font-size: 0.9rem;
+  color: var(--dim-text);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.permission-notes {
+  text-align: left;
+  background-color: rgba(40, 0, 0, 0.6);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px stroke var(--border-color);
+  font-size: 0.8rem;
+}
+
+.permission-notes p {
+  color: var(--amber-orange);
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.permission-notes ul {
+  padding-left: 18px;
+  color: var(--bright-text);
+}
+
+.permission-notes li {
+  margin-bottom: 4px;
+}
+
+.btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-red) 0%, #aa0000 100%);
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 900;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 15px var(--primary-red-glow);
+  letter-spacing: 0.5px;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 5px var(--primary-red-glow);
+}

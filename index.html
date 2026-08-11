@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Shooting Stars Compass - Mirino astronomico offline per localizzare il radiante delle stelle cadenti.">
+  
+  <title>Shooting Stars Compass</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon-192.svg">
+  <link rel="apple-touch-icon" href="icon-192.svg">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Night Vision Overlay Background -->
+  <div class="stars-bg"></div>
+
+  <!-- App Header / Control Panel -->
+  <header class="app-header">
+    <div class="shower-selector-container">
+      <label for="shower-select" class="sr-only">Seleziona Sciame Meteorico</label>
+      <select id="shower-select" class="shower-select">
+        <!-- Calcolato dinamicamente da app.js -->
+      </select>
+      <span class="badge-active" id="active-badge">PROSSIMO PICCO</span>
+    </div>
+
+    <!-- Active Shower Astronomical Info Bar -->
+    <div class="info-card">
+      <div class="info-column">
+        <span class="info-label">AZIMUT</span>
+        <span class="info-value" id="target-az">---°</span>
+      </div>
+      <div class="info-column">
+        <span class="info-label">ALTITUDINE</span>
+        <span class="info-value" id="target-alt">---°</span>
+      </div>
+      <div class="info-column">
+        <span class="info-label">STATO</span>
+        <span class="info-value status-tag" id="target-visibility">CALCOLO...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main HUD / Compass Target Finder Interface -->
+  <main class="compass-viewport">
+    <!-- Pitch / Elevation Ring Indicator (Vertical Alignment) -->
+    <div class="pitch-container">
+      <div class="pitch-scale">
+        <div class="pitch-mark" style="bottom: 0%;">0°</div>
+        <div class="pitch-mark" style="bottom: 33.3%;">30°</div>
+        <div class="pitch-mark" style="bottom: 66.6%;">60°</div>
+        <div class="pitch-mark" style="bottom: 100%;">90°</div>
+      </div>
+      <div class="pitch-target-bar" id="pitch-target-bar"></div>
+      <div class="pitch-current-bar" id="pitch-current-bar"></div>
+    </div>
+
+    <!-- Central Compass View & Reticle -->
+    <div class="hud-center">
+      <!-- Outer Rotating Compass Ring -->
+      <div class="compass-ring" id="compass-ring">
+        <span class="cardinal n">N</span>
+        <span class="cardinal e">E</span>
+        <span class="cardinal s">S</span>
+        <span class="cardinal w">O</span>
+      </div>
+
+      <!-- Target Pointer Line & Marker -->
+      <div class="target-pointer-container" id="target-pointer-container">
+        <div class="target-pointer-line"></div>
+        <div class="target-radiant-marker" id="target-radiant-marker">
+          <div class="radiant-icon">☄️</div>
+          <div class="radiant-name" id="radiant-label-hud">RADIANTE</div>
+        </div>
+      </div>
+
+      <!-- Crosshair Reticle & Lock Target Area -->
+      <div class="reticle" id="reticle">
+        <div class="crosshair horizontal"></div>
+        <div class="crosshair vertical"></div>
+        <div class="lock-box" id="lock-box"></div>
+      </div>
+    </div>
+
+    <!-- Direction Guidance Prompts -->
+    <div class="guidance-overlay">
+      <div class="guidance-text" id="guidance-text">INIZIALIZZAZIONE...</div>
+      <div class="angle-offset-text" id="angle-offset-text">Punta il telefono verso il cielo</div>
+    </div>
+  </main>
+
+  <!-- Navigation / Footer Details -->
+  <footer class="app-footer">
+    <div class="sensor-stats">
+      <span>GPS: <strong id="gps-status">Non attivo</strong></span>
+      <span>BUSSOLA: <strong id="compass-status">In attesa</strong></span>
+      <span>LST: <strong id="lst-time">--:--</strong></span>
+    </div>
+    <div class="shower-details" id="shower-dates-info">
+      --
+    </div>
+  </footer>
+
+  <!-- Start Overlay & Sensor Permissions Request Modal -->
+  <div class="modal-overlay" id="start-modal">
+    <div class="modal-content">
+      <div class="modal-icon">🌌</div>
+      <h2>Shooting Stars Compass</h2>
+      <p class="modal-desc">
+        Bussola astronomica in realtà aumentata per guidarti verso il radiante delle stelle cadenti attualmente attivo.
+      </p>
+      <div class="permission-notes">
+        <p>⚠️ Per la massima precisione:</p>
+        <ul>
+          <li>Attiva il <strong>GPS</strong> del telefono.</li>
+          <li>Consenti l'accesso ai <strong>Sensori di Movimento/Bussola</strong>.</li>
+          <li>Calibra la bussola ruotando il telefono a forma di 8.</li>
+        </ul>
+      </div>
+      <button id="btn-start" class="btn-primary">AVVIA E ATTIVA SENSORI</button>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="app.js"></script>
+</body>
+</html>
