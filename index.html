@@ -9,9 +9,64 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description"
-    content="Shooting Stars Compass - Mirino astronomico offline per localizzare il radiante delle stelle cadenti.">
+    content="Shooting Stars Compass - Mirino astronomico offline PWA e bussola AR in tempo reale per localizzare il radiante delle stelle cadenti nel cielo notturno (Perseidi, Geminidi, Orionidi).">
+  <meta name="keywords" content="stelle cadenti, bussola astronomica, meteor shower compass, perseidi, geminidi, osservazione stelle, orionidi, radiante meteore, PWA astronomia">
+  <meta name="author" content="Daniel Zotti">
+  <meta name="robots" content="index, follow">
 
-  <title>Shooting Stars Compass</title>
+  <!-- Open Graph / Facebook / WhatsApp / Telegram -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danielzotti.github.io/shooting-stars-compass/">
+  <meta property="og:title" content="Shooting Stars Compass - Bussola Astronomica per Stelle Cadenti">
+  <meta property="og:description" content="Punta il tuo smartphone verso il cielo e trova istantaneamente il radiante di sciami meteorici come le Perseidi e le Geminidi con calcoli astronomici precisi in tempo reale.">
+  <meta property="og:image" content="https://danielzotti.github.io/shooting-stars-compass/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Shooting Stars Compass">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://danielzotti.github.io/shooting-stars-compass/">
+  <meta name="twitter:title" content="Shooting Stars Compass - Bussola Astronomica per Stelle Cadenti">
+  <meta name="twitter:description" content="Punta il tuo smartphone verso il cielo e trova istantaneamente il radiante di sciami meteorici con calcoli astronomici in tempo reale.">
+  <meta name="twitter:image" content="https://danielzotti.github.io/shooting-stars-compass/og-image.png">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://danielzotti.github.io/shooting-stars-compass/">
+
+  <!-- Schema.org JSON-LD (GEO - Generative Engine Optimization) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Shooting Stars Compass",
+    "url": "https://danielzotti.github.io/shooting-stars-compass/",
+    "description": "Applicazione Web Progressiva (PWA) e bussola astronomica per localizzare in tempo reale il radiante dei principali sciami meteorici (Perseidi, Geminidi, Orionidi, Liridi) tramite GPS e sensori del dispositivo.",
+    "applicationCategory": "AstronomyApplication",
+    "operatingSystem": "All",
+    "inLanguage": ["it", "en"],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Daniel Zotti"
+    },
+    "featureList": [
+      "Calcolo astronomico in tempo reale dell'Azimut e dell'Altitudine del radiante",
+      "Funzionamento offline completo tramite Service Worker PWA",
+      "Supporto bilingue (Italiano e Inglese)",
+      "Interfaccia HUD reattiva ottimizzata per la visione notturna",
+      "Integrazione sensori di orientamento e GPS del dispositivo"
+    ]
+  }
+  </script>
+
+  <title>Shooting Stars Compass - Bussola Astronomica per Stelle Cadenti</title>
 
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="icon-192.svg">
