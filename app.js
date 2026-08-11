@@ -552,6 +552,20 @@ function handleOrientation(event) {
   renderHUDUpdates();
 }
 
+/**
+ * Calcola la nuova rotazione cumulativa mantenendo il tragitto più breve per evitare scatti tra 359° e 0°
+ */
+function getShortestRotation(currentRotation, targetAngle) {
+  let diff = (targetAngle - currentRotation) % 360;
+  if (diff < -180) diff += 360;
+  if (diff > 180) diff -= 360;
+  return currentRotation + diff;
+}
+
+// Tracciamento dei gradi cumulativi effettivi applicati via CSS per una rotazione continua senza scatti
+let currentCompassRotation = 0;
+let currentPointerRotation = 0;
+
 /* ==========================================================================
    5. RENDER DELL'INTERFACCIA GRAFICA (HUD & GUIDANCE)
    ========================================================================== */
@@ -560,14 +574,17 @@ function handleOrientation(event) {
  * Aggiorna gli elementi grafici del mirino/bussola ad ogni frame sensoriel
  */
 function renderHUDUpdates() {
-  // 1. Ruota l'anello della bussola esteriore
+  // 1. Ruota l'anello della bussola esteriore in modo fluido e continuo
   // Se la bussola del telefono punta a `deviceHeading`, l'anello deve ruotare di `-deviceHeading`
-  dom.compassRing.style.transform = `rotate(${-state.deviceHeading}deg)`;
+  const targetCompassRotation = -state.deviceHeading;
+  currentCompassRotation = getShortestRotation(currentCompassRotation, targetCompassRotation);
+  dom.compassRing.style.transform = `rotate(${currentCompassRotation}deg)`;
 
-  // 2. Ruota il puntatore del radiante sulla bussola
+  // 2. Ruota il puntatore del radiante sulla bussola in modo fluido e continuo
   // L'angolo relativo al radiante rispetto alla direzione del telefono è (TargetAz - DeviceHeading)
   const relativeAzimuth = (state.targetAzimuth - state.deviceHeading + 360) % 360;
-  dom.targetPointerContainer.style.transform = `rotate(${relativeAzimuth}deg)`;
+  currentPointerRotation = getShortestRotation(currentPointerRotation, relativeAzimuth);
+  dom.targetPointerContainer.style.transform = `rotate(${currentPointerRotation}deg)`;
 
   // 3. Aggiorna la scala dell'inclinazione / Altitudine (Pitch Axis)
   // Mappa 0° - 90° su una percentuale di altezza della barra (0% - 100%)
